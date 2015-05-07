@@ -1,0 +1,15 @@
+{
+  "name": "SocialSearch",
+  "version": "1.0.0",
+  "description": "Searches Social Media platforms to find specific types of posts",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Joe Kent",
+  "license": "ISC",
+  "dependencies": {
+    "instagram-node": "^0.5.7",
+    "twitter": "^1.2.5"
+  }
+}
