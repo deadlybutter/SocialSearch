@@ -1,16 +1,18 @@
-//TODO: We need a common data format that everything in this app uses & can be translated into from the search
+//TODO: Add cache to file for dev work
 //TODO: Documentation for writing evaluations & queries
 //TODO: Write the actual fucking evaluations & queries...!
+
+global.TWITTER = "TWITTER";
 
 var fs = require('fs');
 var util = require('util');
 var config = require(__dirname + "/config.json");
 
 var twitterAPI = require("twitter");
-this.instagramClient = require("instagram-node").instagram();
+global.instagramClient = require("instagram-node").instagram();
 
 // Configure clients
-this.twitterClient = new twitterAPI({
+global.twitterClient = new twitterAPI({
   consumer_key: config.twitter.consumer_key,
   consumer_secret: config.twitter.consumer_secret,
   access_token_key: config.twitter.access_token_key,
@@ -18,26 +20,34 @@ this.twitterClient = new twitterAPI({
 });
 
 //TODO: Fix this shiz
-//this.instagramClient.use({access_token: config.instagram.access_token});
-//this.instagramClient.use({client_id: config.instagram.client_id, client_secret: config.instagram.client_secret});
+//global.instagramClient.use({access_token: config.instagram.access_token});
+//global.instagramClient.use({client_id: config.instagram.client_id, client_secret: config.instagram.client_secret});
 
 Array.prototype.comparePost = function(o){
   for (var i = 0; i < this.length; i++) {
-    if (this[i].username == o.username && this[i].fullname == o.fullname && this[i].url == o.url && this[i].photo_url == o.photo_url && this[i].text == o.text && this[i].platform == o.platform) {
+    if (this[i].username == o.username && this[i].url == o.url && this[i].photo_url == o.photo_url && this[i].text == o.text && this[i].platform == o.platform) {
       return i;
     }
   }
   return -1;
 }
 
-global.createPostObject = function(username, fullname, url, photo_url, text, platform) {
+if (typeof String.prototype.startsWith != 'function') {
+  // see below for better implementation!
+  String.prototype.startsWith = function (str){
+    return this.indexOf(str) === 0;
+  };
+}
+
+
+global.createPostObject = function(username, url, photo_url, text, platform, data) {
   return {
     username: username,
-    fullname: fullname,
     url: url,
     photo_url: photo_url,
     text: text,
-    platform: platform
+    platform: platform,
+    data: data
   }
 }
 
