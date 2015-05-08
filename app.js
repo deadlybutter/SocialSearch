@@ -1,10 +1,6 @@
-// Load diff. social modules + config
-// Perform searches -Load all files under 'queries' or something and call the run function, pass instance of this
-// Save data -Do dev mode checks to determine how to save (or if we should even run the query)
-// Perform evaluations -Load all files under 'Evaluations' or something and call the run function, pass instance of this
-// Output the data -Load the output script
-
-// We need a common data format that everything in this app uses & can be translated into from the search
+//TODO: We need a common data format that everything in this app uses & can be translated into from the search
+//TODO: Documentation for writing evaluations & queries
+//TODO: Write the actual fucking evaluations & queries...!
 
 var fs = require('fs');
 var util = require('util');
@@ -21,8 +17,29 @@ this.twitterClient = new twitterAPI({
   access_token_secret: config.twitter.access_token_secret
 });
 
+//TODO: Fix this shiz
 //this.instagramClient.use({access_token: config.instagram.access_token});
 //this.instagramClient.use({client_id: config.instagram.client_id, client_secret: config.instagram.client_secret});
+
+Array.prototype.comparePost = function(o){
+  for (var i = 0; i < this.length; i++) {
+    if (this[i].username == o.username && this[i].fullname == o.fullname && this[i].url == o.url && this[i].photo_url == o.photo_url && this[i].text == o.text && this[i].platform == o.platform) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+global.createPostObject = function(username, fullname, url, photo_url, text, platform) {
+  return {
+    username: username,
+    fullname: fullname,
+    url: url,
+    photo_url: photo_url,
+    text: text,
+    platform: platform
+  }
+}
 
 function loadQueries(){
   var queryDir = __dirname + '/queries';
@@ -54,7 +71,7 @@ function evaluateResults(results){
       var evalFunc = require(evalDir + '/' + evaluation);
       evalFunc.eval(result, this, function(score) {
         points += score;
-        if(points >= config.misc.min_score && evaluatedResults.indexOf(result) == -1) {
+        if(points >= config.misc.min_score && evaluatedResults.comparePost(result) == -1) {
           evaluatedResults.push(result);
         }
         evalsCompleted++;
@@ -69,6 +86,7 @@ function evaluateResults(results){
 function outputResults(results) {
   console.log("OUTPUT--");
   console.log(util.inspect(results, false, null));
+  //TODO: Make output script for Google Sheet
 }
 
 loadQueries();
