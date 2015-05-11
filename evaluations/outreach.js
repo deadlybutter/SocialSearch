@@ -27,6 +27,5 @@ this.eval = function(item, app, finished) {
       points -= 1;
     }
   }
-  console.log(points, text);
   finished(points);
 }

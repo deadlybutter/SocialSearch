@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "instagram-node": "^0.5.7",
+    "superagent": "^1.2.0",
     "twitter": "^1.2.5"
   }
 }
