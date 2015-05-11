@@ -20,10 +20,7 @@ global.twitterClient = new twitterAPI({
   access_token_key: config.twitter.access_token_key,
   access_token_secret: config.twitter.access_token_secret
 });
-
-//TODO: Fix this shiz
-//global.instagramClient.use({access_token: config.instagram.access_token});
-//global.instagramClient.use({client_id: config.instagram.client_id, client_secret: config.instagram.client_secret});
+global.instagramClient.use({client_id: config.instagram.client_id, client_secret: config.instagram.client_secret});
 
 Array.prototype.comparePost = function(o){
   for (var i = 0; i < this.length; i++) {
@@ -35,7 +32,6 @@ Array.prototype.comparePost = function(o){
 }
 
 if (typeof String.prototype.startsWith != 'function') {
-  // see below for better implementation!
   String.prototype.startsWith = function (str){
     return this.indexOf(str) === 0;
   };
@@ -57,7 +53,7 @@ global.createPostObjectFromTweet = function(element) {
     reply: (element.in_reply_to_status_id == null && element.in_reply_to_user_id == null && element.in_reply_to_screen_name == null ? false : true)
   }
   var post = global.createPostObject(screen_name, url, photo_url, text, platform, data);
-  return post;  
+  return post;
 }
 
 global.createPostObject = function(username, url, photo_url, text, platform, data) {
