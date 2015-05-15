@@ -13,7 +13,11 @@ this.run = function(app, finished) {
       searchTerm = element.title.replace(/[\W_]+/g,"");
       global.instagramClient.tag_media_recent(searchTerm.replace(/ /g, ""), function(err, result, remaining, limit) {
         result.forEach(function(element, index, array) {
-          posts.push(global.createPostObjectFromInstagram(element));
+          var postDate = new Date(element.caption.created_time * 1000);
+          var today = new Date();
+          if((today - postDate)/(1000*60*60*24) <= 3) {
+            posts.push(global.createPostObjectFromInstagram(element));
+          }
         });
         termsSearched++;
         searchFinished(finished);

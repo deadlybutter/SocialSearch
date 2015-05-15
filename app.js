@@ -81,6 +81,22 @@ global.createPostObject = function(username, url, photo_url, text, platform, dat
   }
 }
 
+global.containsBadWords = function(text) {
+  var words = require(__dirname + '/badwords').words;
+  var toCheck = text.toLowerCase();
+  var foundWord = false;
+  words.forEach(function(element, index, array) {
+    if(foundWord) {
+      return;
+    }
+    if(toCheck.indexOf(element) != -1){
+      console.log(element, text);
+      foundWord = true;
+    }
+  });
+  return foundWord;
+}
+
 function loadQueries(){
   var queryDir = __dirname + '/queries';
   var queries = config.queries;
