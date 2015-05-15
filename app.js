@@ -3,6 +3,7 @@
 //TODO: Write the actual fucking evaluations & queries...!
 
 global.TWITTER = "TWITTER";
+global.INSTAGRAM = "INSTAGRAM";
 
 var fs = require('fs');
 var util = require('util');
@@ -35,6 +36,19 @@ if (typeof String.prototype.startsWith != 'function') {
   String.prototype.startsWith = function (str){
     return this.indexOf(str) === 0;
   };
+}
+
+global.createPostObjectFromInstagram = function(element) {
+  var screenName = element.user.username;
+  var url = element.link;
+  var photo_url = element.images.standard_resolution.url;
+  var text = element.caption.text;
+  var platform = global.INSTAGRAM;
+  var data = {
+    full_name: element.user.full_name
+  }
+  var post = global.createPostObject(screenName, url, photo_url, text, platform, data);
+  return post;
 }
 
 global.createPostObjectFromTweet = function(element) {

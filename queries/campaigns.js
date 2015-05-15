@@ -19,3 +19,8 @@ this.run = function(app, finished) {
      });
    });
 }
+
+//Add in the data for Each a call to the instagram API
+//After all of those are done running call the Twitter
+//client and have it search the entire query string
+//Call finish with all of the posts.
