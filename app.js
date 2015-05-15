@@ -83,7 +83,7 @@ global.createPostObject = function(username, url, photo_url, text, platform, dat
 
 function loadQueries(){
   var queryDir = __dirname + '/queries';
-  var queries = fs.readdirSync(queryDir);
+  var queries = config.queries;
   var totalQueries = queries.length;
   var finishedQueries = 0;
   var results = [];
@@ -101,7 +101,7 @@ function loadQueries(){
 
 function evaluateResults(results){
   var evalDir = __dirname + '/evaluations';
-  var evaluations = fs.readdirSync(evalDir);
+  var evaluations = config.evaluations;
   var evaluatedResults = [];
   var totalEvals = results.length * evaluations.length;
   var evalsCompleted = 0;
