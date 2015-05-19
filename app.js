@@ -1,7 +1,3 @@
-//TODO: Add cache to file for dev work
-//TODO: Documentation for writing evaluations & queries
-//TODO: Write the actual fucking evaluations & queries...!
-
 global.TWITTER = "TWITTER";
 global.INSTAGRAM = "INSTAGRAM";
 
